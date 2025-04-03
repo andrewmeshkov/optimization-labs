@@ -1,9 +1,11 @@
+import math
 from typing import Callable, List
 
 import numpy as np
 from function import Function, Gradient
-from scipy.constants import golden_ratio
 
+
+GOLDEN_RATIO = (1 + math.sqrt(5)) / 2
 
 
 def gradient_golden_ratio(f: Function, start: List[int], grads: List[Gradient], eps=1e-6):
@@ -25,8 +27,8 @@ def gradient_golden_ratio(f: Function, start: List[int], grads: List[Gradient], 
 
 def golden_ratio_optimization(f: Function, l: np.float32, r: np.float32, grad_x, grad_y, eps: np.float32 = 1e-5):
     while np.abs(l - r) > eps:
-        x_1 = r - (r - l) / golden_ratio
-        x_2 = l + (r - l) / golden_ratio
+        x_1 = r - (r - l) / GOLDEN_RATIO
+        x_2 = l + (r - l) / GOLDEN_RATIO
         y_1 = f(np.array([l - x_1 * grad_x, r - x_1 * grad_y]))
         y_2 = f(np.array([l - x_2 * grad_x, r - x_2 * grad_y]))
         if y_1 >= y_2:
