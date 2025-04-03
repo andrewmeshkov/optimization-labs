@@ -18,6 +18,7 @@ class StepStrategy(ABC):
 
 class ConstantStepStrategy(StepStrategy):
     def __init__(self, learning_rate: float):
+        self.__name__='ConstantStepStrategy'
         self.learning_rate = learning_rate
 
     def step(self, prev_x: np.ndarray, function: float, gradient: np.ndarray) -> float:
@@ -31,12 +32,14 @@ class PiecewiseConstantStepStrategy(StepStrategy):
             patience: int,
             tol: float,
     ):
+        self.__name__ = 'PiecewiseConstantStepStrategy'
         self.current_step = initial_value
         self.reduction_factor = reduction_factor
         self.patience = patience
         self.tol = tol
         self.prev_grad_norm = np.inf
         self.no_improvement_count = 0
+
 
     def step(self, prev_x: np.ndarray, function: float, gradient: np.ndarray) -> float:
         grad_norm = np.linalg.norm(gradient)
@@ -55,6 +58,7 @@ class PiecewiseConstantStepStrategy(StepStrategy):
 
 class SteepestGradientStrategy(StepStrategy):
     def __init__(self, func: Function, eps: float = 1e-5):
+        self.__name__ = 'SteepestGradientStrategy'
         self.func = func
         self.eps = eps
         self.GOLDEN_RATIO = (1 + np.sqrt(5)) / 2
