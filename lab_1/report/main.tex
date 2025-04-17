@@ -23,7 +23,9 @@
     \item
     Кусочно-постоянный
     \item
-    Наискорейший спуск (используется золотое сечение)
+    Наискорейший спуск (золотое сечение)
+    \item
+    Наискорейший спуск (дихотомия)
 \end{itemize}
 Для удобства и расширяемости, методы реализовывались так, чтоб можно было в дальнейшем использовать их для любых размерностей (исходя из предположения, что это может стать объектом исследования в дальнейших лабораторных работах). Для стратегий был создан специальный интерфейс с методом \textit{step}, позволяющий в дальнейшем расширить список реализованных методов.
 
@@ -78,7 +80,7 @@
     4x(x^2 + y - 11) + 2(x + y^2 - 7) \\
     2(x^2 + y - 11) + 4y(x + y^2 - 7)
   \end{pmatrix} \)
-  \item глобальные минимумы: 
+  \item глобальные минимумы:
   \(
     \begin{cases}
       (3.0,\ 2.0) \\
@@ -95,9 +97,10 @@
 
 \begin{table}[H]
 \centering
+%\small
 \begin{tabular}{|l|c|c|c|c|}
 \hline
-\textbf{Функция} & \textbf{Ожидаемый минимум} & \textbf{Пост. шаг} & \textbf{Кусочно-пост. шаг} & \textbf{Наискор. спуск} \\
+\textbf{Функция} & \textbf{argmin} & \textbf{Пост. шаг} & \textbf{Кус.-пост. шаг} & \textbf{Наиск. спуск} \\
 \hline
 paraboloid & \( (0,\ 0) \) & \( (0,\ 0) \) & \( (0,\ 0) \) & \( (0,\ 0) \) \\
 \hline
@@ -109,7 +112,7 @@ min3m2 & \( (3,\ -2) \) & \( (2.9996,\ -1.9997) \) & \( (2.9996,\ -1.9997) \) & 
 \hline
 min2m1 & \( (2,\ -1) \) & \( (2.0000,\ -0.9999) \) & \( (2.0000,\ -0.9999) \) & \( (0.5932,\ -0.1903) \) \\
 \hline
-himmelblau & \( \text{приведены в списке} \) & \( (\text{nan},\ \text{nan}) \) & \( (\text{nan},\ \text{nan}) \) & \( (3.5844,\ -1.8481) \) \\
+himmelblau & \( \text{см. список} \) & \( (\text{nan},\ \text{nan}) \) & \( (\text{nan},\ \text{nan}) \) & \( (3.5844,\ -1.8481) \) \\
 \hline
 \end{tabular}
 \caption{Сравнение точек минимума для разных стратегий шага}
@@ -159,8 +162,8 @@ himmelblau & \( \text{приведены в списке} \) & \( (\text{nan},\ 
 \end{figure}
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]{min3m2-SteepestGradientStrategy.png}
-    \caption{Enter Caption}
-    \label{fig:enter-label}
+    \includegraphics[width=1\linewidth]{min3m2-SteepestGradientStrategy.png}
+
+
 \end{figure}
 \end{document}
