@@ -16,7 +16,7 @@ class StepStrategy(ABC):
     ) -> float:
         pass
 
-class ConstantStepStrategy(StepStrategy):
+class ConstantStrategy(StepStrategy):
     def __init__(self, learning_rate: float):
         self.__name__='ConstantStepStrategy'
         self.learning_rate = learning_rate
@@ -24,7 +24,7 @@ class ConstantStepStrategy(StepStrategy):
     def step(self, prev_x: np.ndarray, function: float, gradient: np.ndarray) -> float:
         return self.learning_rate
 
-class PiecewiseConstantStepStrategy(StepStrategy):
+class PiecewiseConstantsStrategy(StepStrategy):
     def __init__(
             self,
             initial_value: float,
@@ -56,7 +56,7 @@ class PiecewiseConstantStepStrategy(StepStrategy):
         self.prev_grad_norm = np.linalg.norm(gradient)
         return self.current_step
 
-class SteepestGradientStrategy(StepStrategy):
+class SteepestStrategyGR(StepStrategy):
     def __init__(self, func: Function, eps: float = 1e-5):
         self.__name__ = 'SteepestGradientStrategy'
         self.func = func
@@ -80,5 +80,34 @@ class SteepestGradientStrategy(StepStrategy):
                 l = x1
             else:
                 r = x2
+
+        return (l + r) / 2
+
+class SteepestStrategyDichotomy(StepStrategy):
+    def __init__(self, func: Function, eps: float = 1e-3, delta: float = 1e-4):
+        self.__name__ = 'DichotomyStepStrategy'
+        self.func = func
+        self.eps = eps
+        self.delta = delta
+
+    def step(self, prev_x: np.ndarray, function: float, gradient: np.ndarray) -> float:
+        l, r = 0.0, 5.0
+
+        while (r - l) / 2 > self.eps:
+            mid = (l + r) / 2
+            x1 = mid - self.delta
+            x2 = mid + self.delta
+
+
+            point1 = prev_x - x1 * gradient
+            point2 = prev_x - x2 * gradient
+
+            y1 = self.func(point1)
+            y2 = self.func(point2)
+
+            if y1 < y2:
+                r = x2
+            else:
+                l = x1
 
         return (l + r) / 2
