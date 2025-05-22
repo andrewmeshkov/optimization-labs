@@ -36,11 +36,7 @@ class NewtonOptimizer:
                 break
 
             hess_x = self.hess(x)
-            try:
-                direction = np.linalg.solve(hess_x, grad_x)
-            except np.linalg.LinAlgError:
-                print("Hessian is singular, stopping optimization.")
-                break
+            direction = np.linalg.solve(hess_x, grad_x)
 
             step_size = self.step_strategy.step(x, direction, self.func, self.grad)
             x = x - step_size * direction
