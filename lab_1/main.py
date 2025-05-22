@@ -3,7 +3,7 @@ import numpy as np
 
 from gradient_descent import GradientDescentOptimizer
 from gradient_descent.step_strategy import StepStrategy, ConstantStrategy, PiecewiseConstantsStrategy, \
-    SteepestStrategyGR, SteepestStrategyDichotomy
+    SteepestStrategyGR, SteepestStrategyDT
 from function import FuncWithGradient
 from test_functions import TEST_GRADIENT
 
@@ -15,7 +15,7 @@ def get_gd_strategies(func: FuncWithGradient) -> List[tuple[str, StepStrategy]]:
         ("constant", ConstantStrategy(0.1)),
         ("piecewise", PiecewiseConstantsStrategy(0.05, 0.5, 5, 1e-5)),
         ("steepest_gr", SteepestStrategyGR(func.get_func())),
-        ("steepest_dichotomy", SteepestStrategyDichotomy(func.get_func())),
+        ("steepest_dichotomy", SteepestStrategyDT(func.get_func())),
     ]
 
 

@@ -82,7 +82,7 @@ class SteepestStrategyGR(StepStrategy):
 
         return (l + r) / 2
 
-class SteepestStrategyDichotomy(StepStrategy):
+class SteepestStrategyDT(StepStrategy):
     def __init__(self, func: Function, eps: float = 1e-3, delta: float = 1e-4):
         self.__name__ = 'DichotomyStepStrategy'
         self.func = func
