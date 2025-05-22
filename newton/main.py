@@ -81,8 +81,8 @@ class NewtonOptimizer:
 class BFGSOptimizer:
     def __init__(
         self,
-        func: Callable[[np.ndarray], float],
-        grad: Callable[[np.ndarray], np.ndarray],
+        func: Function,
+        grad: Gradient,
         max_iter: int = 1000,
         epsilon: float = 1e-6
     ):
