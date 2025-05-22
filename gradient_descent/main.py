@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from .step_strategy import StepStrategy
-from .function import Function, Gradient
+from function import Function, Gradient
 
 
 class GradientDescentOptimizer:
@@ -14,15 +14,17 @@ class GradientDescentOptimizer:
             step_strategy: StepStrategy,
             max_iterations: int = 10000,
             epsilon: float = 1e-6,
+            x_0: Optional[np.ndarray] = None
     ):
         if func.dim != grad.dim:
-          raise ValueError("Function and gradient must have same dimension")
+            raise ValueError("Function and gradient must have same dimension")
 
         self.func = func
         self.grad = grad
         self.step_strategy = step_strategy
         self.max_iterations = max_iterations
         self.epsilon = epsilon
+        self.x_0 = x_0 if x_0 is not None else np.zeros(func.dim)
 
     def set_step_strategy(self, step_strategy: StepStrategy):
         self.step_strategy = step_strategy
@@ -32,7 +34,7 @@ class GradientDescentOptimizer:
         self.grad = gradient
 
     def optimize(self, make_plot: bool = False, plot_name: Optional[str] = None) -> np.ndarray:
-        x = np.zeros(self.func.dim)
+        x = self.x_0.copy()
         trajectory = [x.copy()]
 
         for i in range(self.max_iterations):
@@ -47,7 +49,6 @@ class GradientDescentOptimizer:
             self._plot_trajectory(np.array(trajectory), plot_name)
 
         return x
-
 
     def _plot_trajectory(self, trajectory: np.ndarray, plot_name: Optional[str]):
         x_vals = trajectory[:, 0]

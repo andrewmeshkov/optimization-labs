@@ -1,9 +1,8 @@
 from abc import ABC, abstractmethod
-from typing import Optional
 
 import numpy as np
 
-from gradient_descent.function import Function
+from function import Function
 
 
 class StepStrategy(ABC):
