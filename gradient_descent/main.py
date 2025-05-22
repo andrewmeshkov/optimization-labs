@@ -29,7 +29,7 @@ class GradientDescentOptimizer:
     def set_step_strategy(self, step_strategy: StepStrategy):
         self.step_strategy = step_strategy
 
-    def set_function(self, func: Callable[[np.ndarray], float], gradient: Callable[[np.ndarray], float]):
+    def set_function(self, func: Function, gradient: Callable[[np.ndarray], float]):
         self.func = func
         self.grad = gradient
 
