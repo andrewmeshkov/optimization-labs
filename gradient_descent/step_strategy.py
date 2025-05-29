@@ -110,3 +110,18 @@ class SteepestStrategyDT(StepStrategy):
                 l = x1
 
         return (l + r) / 2
+
+class MomentumStrategy(StepStrategy):
+    def __init__(self, learning_rate: float, beta: float = 0.9):
+        self.learning_rate = learning_rate
+        self.beta = beta
+        self.velocity = None
+
+    def step(self, prev_x: np.ndarray, function: float, gradient: np.ndarray) -> float:
+        if self.velocity is None:
+            self.velocity = np.zeros_like(gradient)
+        self.velocity = self.beta * self.velocity + (1 - self.beta) * gradient
+        return self.learning_rate
+
+    def get_update_direction(self, gradient: np.ndarray) -> np.ndarray:
+        return self.velocity
