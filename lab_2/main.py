@@ -26,12 +26,12 @@ def main():
                 hess=func.get_hess(),
                 step_strategy=strategy,
             )
-
+            temp_res = solver.optimize(
+                make_plot=False,
+                plot_name=f"{func.get_name()}-{strategy_name}"
+            )
             results.append(
-                solver.optimize(
-                    make_plot=False,
-                    plot_name=f"{func.get_name()}-{strategy_name}"
-                )
+                f"[{", ".join(str(el) for el in temp_res)}], iters: {solver.iterations}"
             )
 
         print(f"Test #{num + 1} ({func.get_name()}):")

@@ -8,7 +8,7 @@
 \renewcommand{\thesection}{\arabic{section}.}
 
 \title{Методы оптимизации, Лабораторная работа №2}
-\author{Кирилл Кадомцев и Андрей Крюков}
+\author{Кирилл Кадомцев}
 \date{Май 2025}
 
 \begin{document}
@@ -81,7 +81,7 @@
 %\small
 \begin{tabular}{|l|c|c|c|}
 \hline
-\textbf{Функция} & \textbf{Корни} & \textbf{Backtracking} & \textbf{Пост. шаг} \\
+\textbf{Функция} & \textbf{argmin} & \textbf{Backtracking} & \textbf{Пост. шаг} \\
 \hline
 paraboloid & \( (0,\ 0) \) & \( (0,\ 0) \) & \( (0,\ 0) \) \\
 \hline
@@ -103,7 +103,37 @@ himmelblau &
 & \( (0.0000,\ 0.0000) \) & \( (-0.3423,\ 0.2500) \) \\
 \hline
 \end{tabular}
-\caption{Сравнение приближений к корням \( f(x, y) = 0 \) при использовании метода Ньютона с разными стратегиями шага}
+\caption{Сравнение результата работы метода Ньютона в зависимости от выбора шага}
+\end{table}
+
+\begin{table}[H]
+\centering
+%\small
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Функция} & \textbf{argmin} & \textbf{Backtracking} & \textbf{Пост. шаг} \\
+\hline
+paraboloid & \( (0,\ 0) \) & 1 & 1 \\
+\hline
+ellipse & \( (0,\ 0) \) & 1 & 1 \\
+\hline
+rosenbrock & \( (1,\ 1) \) & 13 & 3 \\
+\hline
+min3m2 & \( (3,\ -2) \) & 2 & 2 \\
+\hline
+min2m1 & \( (2,\ -1) \) & 1000 & 2 \\
+\hline
+himmelblau & 
+\(
+\begin{array}{l}
+(3.0,\ 2.0),\ (-2.8051,\ 3.1313), \\
+(-3.7793,\ -3.2832),\ (3.5844,\ -1.8481)
+\end{array}
+\) 
+& 1000 & 6 \\
+\hline
+\end{tabular}
+\caption{Сравнение количества итераций в зависимости от выбора шага}
 \end{table}
 
 \section{Графики}

@@ -103,6 +103,30 @@ def himmelblau_grad(args):
     ])
 
 
+@function(dim=2)
+def noisy_rosenbrock(args, noise_scale=0.5):
+    noise = np.random.normal(scale=noise_scale)
+    return float((1-args[0])**2 + 100*(args[1] - args[0]**2)**2 + noise)
+
+@gradient(dim=2)
+def noisy_rosenbrock_grad(args, grad_noise_scale=0.1):
+    base_grad = np.array([
+        -2*(1 - args[0]) - 400*args[0]*(args[1] - args[0]**2),
+        200*(args[1] - args[0]**2)
+    ])
+    grad_noise = np.random.normal(scale=grad_noise_scale, size=2)
+    return base_grad + grad_noise
+
+@hessian(dim=2)
+def noisy_rosenbrock_hess(x, hess_noise_scale=0.05):
+    base_hess = np.array([
+        [1200*x[0]**2 - 400*x[1] + 2, -400*x[0]],
+        [-400*x[0], 200]
+    ])
+    hess_noise = np.diag(np.random.normal(scale=hess_noise_scale, size=2))
+    return base_hess + hess_noise
+
+
 
 TEST_GRADIENT = [
     FuncWithGradient("paraboloid", paraboloid, paraboloid_grad),
@@ -111,6 +135,7 @@ TEST_GRADIENT = [
     FuncWithGradient("min3m2", min3m2, min3m2_grad),
     FuncWithGradient("min2m1", min2m1, min2m1_grad),
     FuncWithGradient("himmelblau", himmelblau, himmelblau_grad),
+    FuncWithGradient("noisy_rosenbrock", noisy_rosenbrock, noisy_rosenbrock_grad),
 ]
 
 TEST_HESS = [

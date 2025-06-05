@@ -25,12 +25,14 @@ class NewtonOptimizer:
         self.step_strategy = step_strategy
         self.max_iterations = max_iterations
         self.epsilon = epsilon
+        self.iterations = 0
 
     def optimize(self, make_plot: bool = False, plot_name: Optional[str] = None) -> np.ndarray:
         x = np.zeros(self.func.dim)
         trajectory = [x.copy()]
 
         for _ in range(self.max_iterations):
+            self.iterations += 1
             grad_x = self.grad(x)
             if np.linalg.norm(grad_x) ** 2 < self.epsilon:
                 break

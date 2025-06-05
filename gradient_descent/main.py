@@ -24,6 +24,7 @@ class GradientDescentOptimizer:
         self.step_strategy = step_strategy
         self.max_iterations = max_iterations
         self.epsilon = epsilon
+        self.iterations = 0
         self.x_0 = x_0 if x_0 is not None else np.zeros(func.dim)
 
     def set_step_strategy(self, step_strategy: StepStrategy):
@@ -34,6 +35,7 @@ class GradientDescentOptimizer:
         self.grad = gradient
 
     def optimize(self, make_plot: bool = False, plot_name: Optional[str] = None) -> np.ndarray:
+        self.iterations = 0
         x = self.x_0.copy()
         trajectory = [x.copy()]
 
@@ -44,6 +46,7 @@ class GradientDescentOptimizer:
             step_size = self.step_strategy.step(x, self.func(x), grad_x)
             x = x - step_size * grad_x
             trajectory.append(x.copy())
+            self.iterations += 1
 
         if make_plot and self.func.dim == 2:
             self._plot_trajectory(np.array(trajectory), plot_name)

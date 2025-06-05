@@ -80,7 +80,7 @@
     4x(x^2 + y - 11) + 2(x + y^2 - 7) \\
     2(x^2 + y - 11) + 4y(x + y^2 - 7)
   \end{pmatrix} \)
-  \item глобальные минимумы:
+  \item глобальные минимумы: 
   \(
     \begin{cases}
       (3.0,\ 2.0) \\
@@ -114,9 +114,37 @@ min2m1 & \( (2,\ -1) \) & \( (2.0000,\ -0.9999) \) & \( (2.0000,\ -0.9999) \) & 
 \hline
 himmelblau & \( \text{см. список} \) & \( (\text{nan},\ \text{nan}) \) & \( (\text{nan},\ \text{nan}) \) & \( (3.5844,\ -1.8481) \) \\
 \hline
+noisy rosenbrock & \( (1,\ 1) \) & \( (\text{nan},\ \text{nan}) \) & \( (\text{nan},\ \text{nan}) \) & \( (\text{nan},\ \text{nan}) \) \\
+\hline
 \end{tabular}
 \caption{Сравнение точек минимума для разных стратегий шага}
 \end{table}
+
+\begin{table}[H]
+\centering
+%\small
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Функция} & \textbf{argmin} & \textbf{Пост. шаг} & \textbf{Кус.-пост. шаг} & \textbf{Наиск. спуск} \\
+\hline
+paraboloid & \( (0,\ 0) \) & 1 & 1 & 1 \\
+\hline
+ellipse & \( (0,\ 0) \) & 1 & 1 & 1 \\
+\hline
+rosenbrock & \( (1,\ 1) \) & 10000 & 10000 & 5723 \\
+\hline
+min3m2 & \( (3,\ -2) \) &  45 & 85 & 2 \\
+\hline
+min2m1 & \( (2,\ -1) \) & 10 & 25 & 10000 \\
+\hline
+himmelblau & \( \text{см. список} \) & 10000 & 10000 & 12 \\
+\hline
+noisy rosenbrock & \( (1,\ 1) \) & 10000 & 10000 & 10000 \\
+\hline
+\end{tabular}
+\caption{Сравнение количества итераций для разных стратегий шага}
+\end{table}
+
 
 \section{Графики}
 Не будем приводить все графики ввиду избыточности. Графики для эллипса демонстрируют, что точка минимума $(0, 0)$ находится за 1 итерацию. Графики для функции Химмельблау показывают несовершенство постоянного и кусочно-постоянного методов для мультимодальной функции. Для квадратичной функции графики приведены для демонстрации работы корректности работы в случае, если минимум отличен от нуля.
@@ -163,7 +191,7 @@ himmelblau & \( \text{см. список} \) & \( (\text{nan},\ \text{nan}) \) &
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{min3m2-SteepestGradientStrategy.png}
-
-
+    
+    
 \end{figure}
 \end{document}
