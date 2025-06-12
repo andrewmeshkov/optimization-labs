@@ -1,6 +1,9 @@
+from typing import List
+
 import numpy as np
 
 from function import function, gradient, hessian, FuncWithGradient, FuncWithHessian
+from function.main import TestFunc
 
 
 @function(dim=2)
@@ -126,9 +129,33 @@ def noisy_rosenbrock_hess(x, hess_noise_scale=0.05):
     hess_noise = np.diag(np.random.normal(scale=hess_noise_scale, size=2))
     return base_hess + hess_noise
 
+@function(dim=1)
+def noisy_periodic(x: np.ndarray) -> float:
+    x_val = x[0]
+    base = np.sin(x_val) + 0.5 * np.sin(3 * x_val)
+    noise = 0.1 * np.sin(20 * x_val) + 0.05 * np.random.randn()
+    return float(base + noise)
+
+@function(dim=1)
+def noisy_nonperiodic(x: np.ndarray) -> float:
+    x_val = x[0]
+    trend = 0.02 * (x_val ** 2) - 0.5 * x_val
+    bumps = 0.3 * np.exp(-0.5 * (x_val - 2) ** 2) - 0.4 * np.exp(-0.3 * (x_val + 3) ** 2)
+    noise = 0.1 * np.random.randn()
+    return float(trend + bumps + noise)
+
+TEST: List[TestFunc] = [
+    TestFunc("noisy_periodic", noisy_periodic),
+    TestFunc("noisy_nonperiodic", noisy_nonperiodic),
+    TestFunc("paraboloid", paraboloid),
+    TestFunc("rosenbrock", rosenbrock),
+    TestFunc("min3m2", min3m2),
+    TestFunc("min2m1", min2m1),
+    TestFunc("himmelblau", himmelblau),
+]
 
 
-TEST_GRADIENT = [
+TEST_GRADIENT: List[FuncWithGradient] = [
     FuncWithGradient("paraboloid", paraboloid, paraboloid_grad),
     FuncWithGradient("ellipse", ellipse, ellipse_grad),
     FuncWithGradient("rosenbrock", rosenbrock, rosenbrock_grad),
@@ -138,7 +165,7 @@ TEST_GRADIENT = [
     FuncWithGradient("noisy_rosenbrock", noisy_rosenbrock, noisy_rosenbrock_grad),
 ]
 
-TEST_HESS = [
+TEST_HESS: List[FuncWithHessian] = [
     FuncWithHessian("paraboloid", paraboloid, paraboloid_grad, paraboloid_hess),
     FuncWithHessian("ellipse", ellipse, ellipse_grad, ellipse_hess),
     FuncWithHessian("rosenbrock", rosenbrock, rosenbrock_grad, rosenbrock_hess),

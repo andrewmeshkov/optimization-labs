@@ -32,25 +32,28 @@ def hessian(dim: int):
         return func
     return decorator
 
-
-class FuncWithGradient:
-    def __init__(self, name: str, func: Function, grad: Gradient):
-        self.func = func
-        self.grad = grad
+class TestFunc:
+    def __init__(self, name: str, func: Function):
         self.name = name
+        self.func = func
+
+    def get_func(self):
+        return self.func
+
+    def get_name(self):
+        return self.name
+
+
+class FuncWithGradient(TestFunc):
+    def __init__(self, name: str, func: Function, grad: Gradient):
+        super().__init__(name, func)
+        self.grad = grad
 
     def get(self) -> (Function, Gradient):
         return self.func, self.grad
 
-
-    def get_func(self) -> Function:
-        return self.func
-
     def get_grad(self) -> Gradient:
         return self.grad
-
-    def get_name(self) -> str:
-        return self.name
 
 
 class FuncWithHessian(FuncWithGradient):

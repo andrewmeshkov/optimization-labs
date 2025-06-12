@@ -1,1 +1,1 @@
-from .main import NewtonOptimizer, BFGSOptimizer
+from .main import NewtonOptimizer, BFGSOptimizer, StepStrategy
