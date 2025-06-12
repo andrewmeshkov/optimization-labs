@@ -22,7 +22,7 @@ def batch_size_loss(x: np.ndarray) -> float:
     model = LinearRegression(
         step_strategy=ConstantStrategy(learning_rate=0.01),
         batch_size=bs,
-        max_iterations=100,
+        max_iterations=1000,
         epsilon=1e-6,
         reg_type='elasticnet',
         alpha=0.1,
@@ -41,7 +41,7 @@ def main():
         initial_temperature=100,
         final_temperature=0.1,
         alpha=0.1,
-        max_iterations=100,
+        max_iterations=1000,
         x_0=np.array([32.0])
     )
 
